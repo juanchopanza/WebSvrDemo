@@ -31,4 +31,13 @@ Change user to `grader` and use `sudo apt-get`
     sudo apt-get update
     sudo apt-get upgrade
     
+### Extra: disable root ssh access
+
+`sudo vim /etc/ssh/sshd_config` and set
+
+    PermitRootLogin no
     
+Then restart ssh:
+
+    sudo service ssh restart
+

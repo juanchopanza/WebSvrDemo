@@ -3,6 +3,8 @@ Web server for Udacity full stack nanodegree project 5
 
 ## Set up
 
+Unless specified otherwise, these steps have been implemented using information either from Udacity's *Configuring Linux Web Servers* course or from experienced accrued over many years of playing around with Linux boxes.
+
 #### 1. Create a new user named `grader`
 
     addusr grader
@@ -42,6 +44,8 @@ Hostname is in `/etc/hostname`. Add that hostname to `/etc/hosts`:
 And reboot the machine
 
     sudo reboot
+    
+* Source: [AskUbuntu](http://askubuntu.com/questions/59458/error-message-when-i-run-sudo-unable-to-resolve-host-none)
 
 #### 6. Extra: disable root ssh access
 

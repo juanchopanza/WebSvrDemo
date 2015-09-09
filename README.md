@@ -1,6 +1,8 @@
 # WebSvrDemo
 Web server for Udacity full stack nanodegree project 5
 
+## Set up
+
 ### Create a new user named `grader`
 
     addusr grader
@@ -55,3 +57,44 @@ We can now log in with
 
     ssh -i ~/.ssh/udacity_key.rsa grader@52.88.73.214 -p 2200
     
+### Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+
+Check UFW status
+
+    $ sudo ufw status
+    Status: inactive
+
+Allow SSH, HTTP, NTP
+
+    # Disallow incoming
+    sudo ufw default deny incoming
+    # Allow outgoing
+    sudo ufw default allow outgoing
+    # Allow ssh (port 2200)
+    sudo ufw allow 2200/tcp
+    # Allow HTTP (port 80)
+    sudo ufw allow www
+    # Allow NTP (port 123)
+    sudo ufw allow ntp
+    
+Enable the UFW
+
+    sudo ufw enable
+    
+Check status
+
+    $ ufw status
+    Status: active
+     
+    To                         Action      From
+    --                         ------      ----
+    2200/tcp                   ALLOW       Anywhere
+    80/tcp                     ALLOW       Anywhere
+    123                        ALLOW       Anywhere
+    2200/tcp (v6)              ALLOW       Anywhere (v6) 
+    80/tcp (v6)                ALLOW       Anywhere (v6) 
+    123 (v6)                   ALLOW       Anywhere (v6)
+    
+### Install apache2, apache2-mod-wsgi and apache docs
+
+    sudo apt-get install apache2 apache2-doc libapache2-mod-wsgi

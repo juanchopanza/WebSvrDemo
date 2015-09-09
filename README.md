@@ -33,6 +33,16 @@ Change user to `grader` and use `sudo apt-get`
     sudo apt-get update
     sudo apt-get upgrade
     
+### Fix warning `sudo: unable to resolve host ip-xx-yy-zz-xyz`
+
+Hostname is in `/etc/hostname`. Add that hostname to `/etc/hosts`:
+
+    127.0.1.1 ip-xx-yy-zz-xyz
+    
+And reboot the machine
+
+    sudo reboot
+
 ### Extra: disable root ssh access
 
 `sudo vim /etc/ssh/sshd_config` and set

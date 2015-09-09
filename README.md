@@ -41,3 +41,17 @@ Then restart ssh:
 
     sudo service ssh restart
 
+### change SSH port to 2200
+
+Modify relevant line in `/etc/ssh/sshd_config` to
+
+    Port 2200
+    
+and restart `ssh`
+
+    sudo service ssh restart
+    
+We can now log in with
+
+    ssh -i ~/.ssh/udacity_key.rsa grader@52.88.73.214 -p 2200
+    

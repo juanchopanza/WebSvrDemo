@@ -53,6 +53,10 @@ And reboot the machine
 
     PermitRootLogin no
     
+For safety, remove `root`'s `.ssh/authorized_keys`. These are not needed anymore.
+
+    sudo rm /root/.ssh/authorized_keys
+    
 Then restart ssh:
 
     sudo service ssh restart

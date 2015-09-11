@@ -115,9 +115,9 @@ Check status
     
 #### 9. Install apache2, apache2-mod-wsgi and apache docs
 
-Install apache:
+Install apache and apache docs:
 
-    sudo apt-get install apache2 libapache2-mod-wsgi
+    sudo apt-get install apache2 apache2-doc
 
 This produces warning message
 
@@ -137,5 +137,46 @@ Expected output:
 
      * Restarting web server apache2
        ...done.
-       
+
 Source: [AskUbuntu](http://askubuntu.com/questions/256013/could-not-reliably-determine-the-servers-fully-qualified-domain-name).
+
+Check that server is running by accessing `http://http://52.88.73.214/`. That should
+produce the Ubuntu Apache2 welcome page.
+
+Install apache2 docs because they are quite useful
+
+    sudo apt-get install apache2-doc
+
+#### 10. Install apache2-mod-wsgi and configure apache to use WSGI module
+
+Install apache WSGI module
+
+    sudo apt-get install libapache2-mod-wsgi
+
+Set up a trivial WSGI application to test that the module is working.
+
+First, add the following line to `/etc/apache2/sites-enabled/000-default.conf`, before
+the closing `<VirtualHost>`:
+
+    WSGIScriptAlias / /var/www/html/hello.wsgi
+
+Next, put the following hello world application in `/var/www/html/hello.wsgi`:
+
+    def application(environ, start_response):
+        status = '200 OK'
+        output = 'Hello, WSGI World!'
+    
+        response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
+        start_response(status, response_headers)
+    
+        return [output]
+
+And re-start apache
+
+    sudo service apache2 restart
+
+Now, visiting `http://52.88.73.214/` should produce a page with
+
+    Hello, WSGI World!
+
+Additional sources: [Apache configuration documentation](https://httpd.apache.org/docs/2.2/configuring.html).

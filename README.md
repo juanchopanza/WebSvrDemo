@@ -113,7 +113,7 @@ Check status
     80/tcp (v6)                ALLOW       Anywhere (v6) 
     123 (v6)                   ALLOW       Anywhere (v6)
     
-#### 9. Install apache2, apache2-mod-wsgi and apache docs
+#### 9. Install packages
 
 Install apache and apache docs:
 

@@ -115,4 +115,25 @@ Check status
     
 #### 9. Install apache2, apache2-mod-wsgi and apache docs
 
-    sudo apt-get install apache2 apache2-doc libapache2-mod-wsgi
+Install apache:
+
+    sudo apt-get install apache2 libapache2-mod-wsgi
+
+This produces warning message
+
+> AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+
+We fix this by creating file `/etc/apache2/conf-available/fqdn.conf` with the line `ServerName $HOSTNAME`
+
+    echo "ServerName $HOSTNAME" | sudo tee /etc/apache2/conf-available/fqdn.conf
+    sudo a2enconf fqdn
+    sudo service apache2 reload
+    
+Test that the warning has disappeared
+
+    sudo service apache2 restart
+    
+Expected output:
+
+> * Restarting web server apache2
+>   ...done.

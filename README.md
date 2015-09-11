@@ -121,7 +121,7 @@ Install apache:
 
 This produces warning message
 
-> AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+    AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
 
 We fix this by creating file `/etc/apache2/conf-available/fqdn.conf` with the line `ServerName $HOSTNAME`
 
@@ -135,5 +135,5 @@ Test that the warning has disappeared
     
 Expected output:
 
-> * Restarting web server apache2
->   ...done.
+     * Restarting web server apache2
+       ...done.

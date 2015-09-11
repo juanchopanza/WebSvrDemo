@@ -137,3 +137,5 @@ Expected output:
 
      * Restarting web server apache2
        ...done.
+       
+Source: [AskUbuntu](http://askubuntu.com/questions/256013/could-not-reliably-determine-the-servers-fully-qualified-domain-name).

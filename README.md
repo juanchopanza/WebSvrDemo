@@ -113,7 +113,40 @@ Check status
     80/tcp (v6)                ALLOW       Anywhere (v6) 
     123 (v6)                   ALLOW       Anywhere (v6)
     
-#### 9. Install packages
+#### 9. Configure the local timezone to UTC
+
+Using the `date` command we can see the timezone is already set to UTC:
+
+    $ date +%Z
+    UTC
+
+Otherwise, reconfigure `tzdata` and set to UTC:
+
+    $ sudo dpkg-reconfigure tzdata
+
+However, we can set up the Network Time Protocol (NTP) to regularly update the time.
+
+Install ntp and the ntp documentation:
+
+    sudo apt-get install ntp ntp-doc
+
+Check if the NTP daemon is running:
+
+    sudo /etc/init.d/ntp status
+
+If it is running, the command above should output
+
+     * NTP server is running
+
+Otherwise, restart it:
+
+    sudo /etc/init.d/ntp restart
+
+Note that we could select different time servers depending on location if necessary.
+
+Source: [UbuntuTime](https://help.ubuntu.com/community/UbuntuTime).
+
+#### 10. Install Apache2 and documentation
 
 Install apache and apache docs:
 
@@ -147,7 +180,7 @@ Install apache2 docs because they are quite useful
 
     sudo apt-get install apache2-doc
 
-#### 10. Install apache2-mod-wsgi and configure apache to use WSGI module
+#### 11. Install apache2-mod-wsgi and configure apache to use WSGI module
 
 Install apache WSGI module
 
@@ -180,3 +213,4 @@ Now, visiting `http://52.88.73.214/` should produce a page with
     Hello, WSGI World!
 
 Additional sources: [Apache configuration documentation](https://httpd.apache.org/docs/2.2/configuring.html).
+

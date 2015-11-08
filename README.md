@@ -236,13 +236,13 @@ sudo adduser catalog # provide a suitable password
 Create `postgres` user `catalog`:
 
 ```shell
-su postgres -c 'createuser -dRS catalog'
+sudo su postgres -c 'createuser -dRS catalog'
 ```
 
 Create database `itemcatalog`, owned by user `catalog`
 
 ```shell
-sudo su postgres -c 'createdb itemcatalog2 -O catalog'
+sudo su postgres -c 'createdb itemcatalog -O catalog'
 ```
 
 Disable access for all users except `catalog`:
@@ -264,7 +264,7 @@ GRANT connect ON DATABASE itemcatalog TO catalog;
 A few packages are needed to ease the installation and running of the item catalog
 application.
 
-Instll `git`,`pip`, `virtualenv`, `supervisord`:
+Install `git`,`pip`, `virtualenv`, `supervisord`:
 
 ```shell
 sudo apt-get install git

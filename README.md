@@ -245,11 +245,10 @@ Create database `itemcatalog`, owned by user `catalog`
 sudo su postgres -c 'createdb itemcatalog2 -O catalog'
 ```
 
-Disable access for all but user `catalog`:
+Disable access for all users except `catalog`:
 
 Launch the `psql` interpreter as `postgres`
 ```shell
-# 
 sudo su postgres -c 'psql'
 ```
 
@@ -271,7 +270,7 @@ Instll `git`,`pip`, `virtualenv`, `supervisord`:
 sudo apt-get install git
 sudo apt-get install python-pip
 sudo apt-get install python-virtualenv
-sudo apt-get install supervisor-pip
+sudo apt-get install supervisor
 ```
 
 The remaining python dependencies will be installed with `pip` into a `virtualenv`.

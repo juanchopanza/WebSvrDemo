@@ -214,3 +214,31 @@ Now, visiting `http://52.88.73.214/` should produce a page with
 
 Additional sources: [Apache configuration documentation](https://httpd.apache.org/docs/2.2/configuring.html).
 
+#### 12. Install and configure PodtgreSQL
+
+We will use `postgresql` as a database backend for the item catalog app. We need to install
+the package and take care of some configuration.
+
+```shell
+sudo apt-get install postgresql
+```
+
+Check only local connections are allowed. See `/etc/postgresql/9.3/main/pg_hba.conf`.
+
+TODO: Create relevant user, `itemcatalog` DB.
+
+#### 12. Install other item catalog app dependencies
+
+A few packages are needed to ease the installation and running of the item catalog
+application.
+
+Instll `git`,`pip`, `virtualenv`, `supervisord`:
+
+```shell
+sudo apt-get install git
+sudo apt-get install python-pip
+sudo apt-get install python-virtualenv
+sudo apt-get install supervisor-pip
+```
+
+The remaining python dependencies will be installed with `pip` into a `virtualenv`.

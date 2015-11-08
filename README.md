@@ -217,7 +217,9 @@ Additional sources: [Apache configuration documentation](https://httpd.apache.or
 #### 12. Install and configure PodtgreSQL
 
 We will use `postgresql` as a database backend for the item catalog app. We need to install
-the package and take care of some configuration.
+the package and take care of some configuration and database creation.
+
+Install `postgresql`:
 
 ```shell
 sudo apt-get install postgresql
@@ -225,7 +227,38 @@ sudo apt-get install postgresql
 
 Check only local connections are allowed. See `/etc/postgresql/9.3/main/pg_hba.conf`.
 
-TODO: Create relevant user, `itemcatalog` DB.
+Create unix user `catalog`:
+
+```shell
+sudo adduser catalog # provide a suitable password
+```
+
+Create `postgres` user `catalog`:
+
+```shell
+su postgres -c 'createuser -dRS catalog'
+```
+
+Create database `itemcatalog`, owned by user `catalog`
+
+```shell
+sudo su postgres -c 'createdb itemcatalog2 -O catalog'
+```
+
+Disable access for all but user `catalog`:
+
+Launch the `psql` interpreter as `postgres`
+```shell
+# 
+sudo su postgres -c 'psql'
+```
+
+Once in the interpreter, issue the following commands:
+
+```shell
+REVOKE connect ON DATABASE itemcatalog FROM PUBLIC;
+GRANT connect ON DATABASE itemcatalog TO catalog;
+```
 
 #### 12. Install other item catalog app dependencies
 

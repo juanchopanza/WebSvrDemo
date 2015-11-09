@@ -173,7 +173,7 @@ Expected output:
 
 Source: [AskUbuntu](http://askubuntu.com/questions/256013/could-not-reliably-determine-the-servers-fully-qualified-domain-name).
 
-Check that server is running by accessing `http://http://52.88.73.214/`. That should
+Check that server is running by accessing `http://52.88.73.214/`. That should
 produce the Ubuntu Apache2 welcome page.
 
 Install apache2 docs because they are quite useful
@@ -274,3 +274,10 @@ sudo apt-get install supervisor
 ```
 
 The remaining python dependencies will be installed with `pip` into a `virtualenv`.
+
+#### 13. WSGI configuration
+
+We will configure Apache to run an WSGI app from a `virtualenv`. The app should be
+demonized such that it starts whenever the server re-starts.
+
+Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)

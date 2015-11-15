@@ -285,19 +285,28 @@ demonized such that it starts whenever the server re-starts.
 
 Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
 
-##### 13.1 Clone item catalog repo, initialize a virtualenv and initialize database
+##### 13.1 Install item catalog app and initialize database
 
 ```shell
-# clone the repo
-sudo git clone https://github.com/juanchopanza/ItemCatalog.git /var/www/catalog
 # initialize a virtualenv
-sudo virtualenv --system-site-packages /var/www/catalog/venv
+sudo virtualenv --system-site-packages /var/www/catalog
 # transfer ownership to user catalog
 sudo chown -R catalog:catalog ./catalog
-# install requirements into virtualenv as user catalog
-sudo su catalog -c "/var/www/catalog/venv/bin/pip install -r /var/www/catalog/requirements.txt"
+# install ItemCatalog app into virtualenv as user catalog
+sudo su catalog -c "/var/www/catalog/venv/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git"
 # initialize the database
-sudo su catalog -c "/var/www/catalog/venv/bin/python /var/www/catalog/init_db.py -c /var/www/catalog/config_prod.py"
+sudo su catalog -c "/var/www/catalog/init_db.py -t psql"
+```
+
+##### 13.2 Create a directory for secrets and populate it
+
+This application has authentication for for google and facebook sign-in and requires secrets files for both. The
+instructions for obtaining these are given in [Udacity's Authentication and Authorization course](https://www.udacity.com/course/viewer#!/c-ud330/l-3951228603/m-3949778775). See also the Full stack nanodegree project 3 for more details. Here, we assume the secrets files have been correctly obtained elsewhere.
+
+```shell
+sudo su catalog -c "mkdir -p /var/www/catalog/.secrets"
+cp <some_secret_location>/client_secrets.json /var/www/catalog/.secrets/.
+cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/.
 ```
 
 ##### 13.2 Create virtual host configuration

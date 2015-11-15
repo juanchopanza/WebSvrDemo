@@ -281,3 +281,22 @@ We will configure Apache to run an WSGI app from a `virtualenv`. The app should 
 demonized such that it starts whenever the server re-starts.
 
 Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
+
+##### 13.1 Clone item catalog repo and initialize a virtualenv
+
+```shell
+# clone the repo
+sudo git clone https://github.com/juanchopanza/ItemCatalog.git /var/www/catalog
+# initialize a virtualenv
+sudo virtualenv --system-site-packages /var/www/catalog/venv
+# transfer ownership to user catalog
+sudo chown -R catalog:catalog ./catalog
+# install requirements into virtualenv as user catalog
+sudo su catalog -c "/var/www/catalog/venv/bin/pip install -r /var/www/catalog/requirements.txt"
+```
+
+##### 13.2 Create virtual host configuration
+
+A template for the virtual host apache configuration itemcatalog.conf can be found in the itemcatalog repository. Modify this file and move if to `/etc/apache2/sites-available/catalog.conf`.
+
+##### 13.3 Create WSGI application file

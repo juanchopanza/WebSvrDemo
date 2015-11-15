@@ -245,7 +245,7 @@ Create database `itemcatalog`, owned by user `catalog`
 sudo su postgres -c 'createdb itemcatalog -O catalog'
 ```
 
-Disable access for all users except `catalog`:
+Disable access for all users except `catalog` and set a password:
 
 Launch the `psql` interpreter as `postgres`
 ```shell
@@ -257,7 +257,10 @@ Once in the interpreter, issue the following commands:
 ```shell
 REVOKE connect ON DATABASE itemcatalog FROM PUBLIC;
 GRANT connect ON DATABASE itemcatalog TO catalog;
+ALTER USER catalog WITH PASSWORD '<CATALOG_PWD>';
 ```
+
+where `<CATALOG_PWD>` is to be set to something sensible.
 
 #### 12. Install other item catalog app dependencies
 

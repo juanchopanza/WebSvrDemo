@@ -342,7 +342,15 @@ Check the file, modify is necessary, and move it to `/etc/apache2/sites-availabl
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 
-##### 14.4 Create WSGI application file
+Enable the new site, disable the default site, and reload `apache2`.
+
+```shell
+sudo a2ensite catalog
+sudo a2dissite 000-default
+sudo service apache2 reload
+```
+
+##### 14.4 Modify the WSGI application file
 
 A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct, and set the postgres user `catalog`'s password (see step 12.):
 
@@ -354,4 +362,10 @@ os.environ['SECRETS_PATH'] = '%s/.secrets' % VENV # secrets location
 ...
 # Replace <CATALOG_PWD> for the real password of the POSTGRES user "catalog"
 application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://catalog:<CATALOG_PWD>@localhost/itemcatalog'
+```
+
+Re-start `apache2`.
+
+```shell
+sudo service apache2 restart
 ```

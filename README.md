@@ -271,6 +271,8 @@ Install `git`,`pip`, `virtualenv`, `supervisord`:
 
 ```shell
 sudo apt-get install git
+sudo apt-get install python-dev
+sudo apt-get install python-psycopg2
 sudo apt-get install python-pip
 sudo apt-get install python-virtualenv
 sudo apt-get install supervisor
@@ -294,9 +296,9 @@ we ensure we only install the code necessary to run the application.
 # initialize a virtualenv
 sudo virtualenv --system-site-packages /var/www/catalog
 # transfer ownership to user catalog
-sudo chown -R catalog:catalog ./catalog
+sudo chown -R catalog:catalog /var/www/catalog
 # install ItemCatalog app into virtualenv as user catalog
-sudo su catalog -c "/var/www/catalog/venv/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git"
+sudo su catalog -c "/var/www/catalog/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git"
 # initialize the database tables
 sudo su catalog -c "/var/www/catalog/bin/init_db.py -t psql"
 ```

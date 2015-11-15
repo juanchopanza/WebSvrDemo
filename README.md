@@ -315,16 +315,17 @@ sudo chown -R catalog:catalog /var/catalog/.secrets
 
 ##### 13.2 Create virtual host configuration
 
-A template for the virtual host apache configuration itemcatalog.conf can be found in the itemcatalog repository. Modify this file and move if to `/etc/apache2/sites-available/catalog.conf`. The final result shoudl look something like
+An example virtual host apache configuration file `catalog.conf` can be found in this repository. This configuration runs the application from the `virtualenv` as user `catalog`.
+Check the file, modify is necessary, and move it to `/etc/apache2/sites-available/catalog.conf`. The final result shoudl look something like
 
 ```xml
 <VirtualHost *:80>
 
-	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/catalog
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/catalog
 
-	ErrorLog ${APACHE_LOG_DIR}/error.log
-	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
     WSGIScriptAlias / /var/www/catalog/bin/itemcatalog.wsgi
     WSGIDaemonProcess itemcatalog user=catalog group=catalog threads=5
@@ -341,7 +342,7 @@ A template for the virtual host apache configuration itemcatalog.conf can be fou
 
 ##### 13.3 Create WSGI application file
 
-A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed. Check that the script and secret paths are correct:
+A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct and modify if required:
 
 ```python
 ...

@@ -136,10 +136,34 @@ Check status
     
 ##### 8.b Protect against repeated unsuccesful login attempts
 
-We will use [fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page).
+We will use [fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page), and configure
+it to e-mail to admin.
+
 
 ```shell
 sudo apt-get install fail2ban
+sudo apt-get install sendmail
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+```
+
+Modify the configuration file `/etc/fail2ban/jail.local`:
+
+Set the ssh port to 2200. Under `[ssh]`,
+
+```shell
+port = 2200
+```
+
+Change the default action to ban, send e-mail with whois repots and loglines.
+
+```shell
+action = %(action_mwl)s
+```
+
+Re-start the service
+
+```shell
+sudo service fail2ban restart
 ```
 
 Source: ["How To Protect SSH with Fail2Ban on Ubuntu 14.04 (digital ocean)"](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04).

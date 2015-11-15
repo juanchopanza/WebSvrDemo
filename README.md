@@ -35,6 +35,8 @@ Change user to `grader` and use `sudo apt-get`
     sudo apt-get update
     sudo apt-get upgrade
     
+**Note**: Automatic upgrading of packages is  not set up. We are interested in stability, so updgrades will be applied manually after evaluation. In a real-life application, we would phase un upgrades in a dev machine before pushing into production.
+
 #### 5. Fix warning `sudo: unable to resolve host ip-xx-yy-zz-xyz`
 
 Hostname is in `/etc/hostname`. Add that hostname to `/etc/hosts`:

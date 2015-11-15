@@ -329,7 +329,10 @@ Non-authoritative answer:
 
 Here, the host name is `ec2-52-88-73-214.us-west-2.compute.amazonaws.com`. This is the address that should be used to access the application.
 
-Next, go to the [Google Developer Console](https://console.developers.google.com/project) and set javascript origins and redirect URLS using the hostname.
+Next, enable the URL in google and facebook's developer settings. We don't go into detail here because it is assumed this part has been covered in project 3.
+
+* Go to [Google Developer Console](https://console.developers.google.com/project) and set javascript origins and redirect URLS using the hostname.
+* Go to [facebook developer apps](https://developers.facebook.com/apps), select this app and set the URL in both basic and advanced settings.
 
 ##### 14.3 Create virtual host configuration
 

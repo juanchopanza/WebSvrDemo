@@ -27,15 +27,32 @@ Then copy `root`'s `.ssh/authorized_keys` and change permissions
     sudo chown grader:grader .ssh/authorized_keys 
     chmod 644 .ssh/authorized_keys
 
-#### 4. Update all currently installed packages
+#### 4. Update packages
+
+#### 4.a Initial update of all currently installed packages
 
 Change user to `grader` and use `sudo apt-get`
 
     su - grader
     sudo apt-get update
     sudo apt-get upgrade
+
+##### 4.b Automatic security updates
     
-**Note**: Automatic upgrading of packages is  not set up. We are interested in stability, so updgrades will be applied manually after evaluation. In a real-life application, we would phase un upgrades in a dev machine before pushing into production.
+**Note**: This is an extra requirement of the project. However, in a real life, critical application I would not have enabled automatic upgrading of packages. In the interest of stability, upgrages would be applied manually after careful evaluation. We would then phase un upgrades in a dev machine(s) before pushing into production.
+
+We will use the `unattended-upgrades` package.
+
+```shell
+sudo apt-get install unattended-upgrades
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
+
+This opens a console application that prompts the user. Select "yes".
+
+
+
+Source [Ubuntu doecumentation on AutomaticSecurityUpdates](https://help.ubuntu.com/community/AutomaticSecurityUpdates).
 
 #### 5. Fix warning `sudo: unable to resolve host ip-xx-yy-zz-xyz`
 

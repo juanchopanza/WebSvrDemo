@@ -445,3 +445,19 @@ Re-start `apache2`.
 ```shell
 sudo service apache2 restart
 ```
+
+#### 15 Install monitoring application
+
+We use [glances](http://glances.readthedocs.org/en/latest/glances-doc.html#introduction)
+because it is easy to install and is usable in a plain terminal.
+
+````shell
+sudo apt-get install build-essential lm-sensors
+sudo pip install Glances
+sudo pip install PySensors
+```
+
+To start type `glances` in the terminal commandline.
+
+
+Source: [AskUbuntu](http://askubuntu.com/questions/293426/system-monitoring-tools-for-ubuntu).

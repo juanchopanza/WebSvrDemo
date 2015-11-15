@@ -94,7 +94,9 @@ We can now log in with
 
     ssh -i ~/.ssh/udacity_key.rsa grader@52.88.73.214 -p 2200
     
-#### 8. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+#### 8. Configure firewall and protect against repeated failed login attempts
+
+##### 8.a Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
 
 Check UFW status
 
@@ -132,6 +134,16 @@ Check status
     80/tcp (v6)                ALLOW       Anywhere (v6) 
     123 (v6)                   ALLOW       Anywhere (v6)
     
+##### 8.b Protect against repeated unsuccesful login attempts
+
+We will use [fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page).
+
+```shell
+sudo apt-get install fail2ban
+```
+
+Source: ["How To Protect SSH with Fail2Ban on Ubuntu 14.04 (digital ocean)"](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04).
+
 #### 9. Configure the local timezone to UTC
 
 Using the `date` command we can see the timezone is already set to UTC:

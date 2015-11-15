@@ -353,10 +353,13 @@ sudo virtualenv --system-site-packages /var/www/catalog
 # transfer ownership to user catalog
 sudo chown -R catalog:catalog /var/www/catalog
 # install ItemCatalog app into virtualenv as user catalog
-sudo su catalog -c "/var/www/catalog/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git"
+sudo su catalog -c "/var/www/catalog/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git@v0.0.0"
 # initialize the database tables
 sudo su catalog -c "/var/www/catalog/bin/init_db.py -t psql"
 ```
+
+Note: here we install tagged version `v0.0.0`. We do not want to blindly pick up the HEAD
+revision.
 
 ##### 14.2 Create a directory for secrets and populate it
 

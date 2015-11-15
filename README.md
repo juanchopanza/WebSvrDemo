@@ -282,7 +282,7 @@ demonized such that it starts whenever the server re-starts.
 
 Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
 
-##### 13.1 Clone item catalog repo and initialize a virtualenv
+##### 13.1 Clone item catalog repo, initialize a virtualenv and initialize database
 
 ```shell
 # clone the repo
@@ -293,6 +293,8 @@ sudo virtualenv --system-site-packages /var/www/catalog/venv
 sudo chown -R catalog:catalog ./catalog
 # install requirements into virtualenv as user catalog
 sudo su catalog -c "/var/www/catalog/venv/bin/pip install -r /var/www/catalog/requirements.txt"
+# initialize the database
+sudo su catalog -c "/var/www/catalog/venv/bin/python /var/www/catalog/init_db.py -c /var/www/catalog/config_prod.py"
 ```
 
 ##### 13.2 Create virtual host configuration

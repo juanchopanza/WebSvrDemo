@@ -315,6 +315,22 @@ sudo cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/
 sudo chown -R catalog:catalog /var/www/catalog/.secrets
 ```
 
+##### 14.3 Obtain hostname and enable google, facebook credentials
+
+We will need the hostname to ease authentication with google and facebook. The host name can be obtained from the IP address using `nslookup`:
+
+```shell
+nslookup 52.88.73.214
+Server:         192.168.1.1
+
+Non-authoritative answer:
+214.73.88.52.in-addr.arpa       name = ec2-52-88-73-214.us-west-2.compute.amazonaws.com.
+```
+
+Here, the host name is `ec2-52-88-73-214.us-west-2.compute.amazonaws.com`. This is the address that should be used to access the application.
+
+Next, go to the [Google Developer Console](https://console.developers.google.com/project) and set javascript origins and redirect URLS using the hostname.
+
 ##### 14.3 Create virtual host configuration
 
 An example virtual host apache configuration file `catalog.conf` can be found in this repository. This configuration runs the application from the `virtualenv` as user `catalog`.
@@ -323,7 +339,9 @@ Check the file, modify is necessary, and move it to `/etc/apache2/sites-availabl
 ```xml
 <VirtualHost *:80>
 
-    ServerAdmin webmaster@localhost
+    ServerName 52.88.73.214
+    ServerAdmin admin@52.88.73.214
+    ServerAlias ec2-52-88-73-214.us-west-2.compute.amazonaws.com
     DocumentRoot /var/www/catalog
 
     ErrorLog ${APACHE_LOG_DIR}/error.log

@@ -27,9 +27,9 @@ Then copy `root`'s `.ssh/authorized_keys` and change permissions
     sudo chown grader:grader .ssh/authorized_keys 
     chmod 644 .ssh/authorized_keys
 
-#### 4. Update packages
+#### 4. Upgrade packages
 
-#### 4.a Initial update of all currently installed packages
+##### 4.a Initial update of all currently installed packages
 
 Change user to `grader` and use `sudo apt-get`
 
@@ -37,7 +37,7 @@ Change user to `grader` and use `sudo apt-get`
     sudo apt-get update
     sudo apt-get upgrade
 
-##### 4.b Automatic security updates
+##### 4.b Set up automatic security updates
     
 **Note**: This is an extra requirement of the project. However, in a real life, critical application I would not have enabled automatic upgrading of packages. In the interest of stability, upgrages would be applied manually after careful evaluation. We would then phase un upgrades in a dev machine(s) before pushing into production.
 

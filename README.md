@@ -287,6 +287,9 @@ Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/
 
 ##### 13.1 Install item catalog app and initialize database
 
+We install the item catalog application from project 3 into a virtualenv. By doing this instead of cloning the repo,
+we ensure we only install the code necessary to run the application.
+
 ```shell
 # initialize a virtualenv
 sudo virtualenv --system-site-packages /var/www/catalog
@@ -294,8 +297,8 @@ sudo virtualenv --system-site-packages /var/www/catalog
 sudo chown -R catalog:catalog ./catalog
 # install ItemCatalog app into virtualenv as user catalog
 sudo su catalog -c "/var/www/catalog/venv/bin/pip install git+https://github.com/juanchopanza/ItemCatalog.git"
-# initialize the database
-sudo su catalog -c "/var/www/catalog/init_db.py -t psql"
+# initialize the database tables
+sudo su catalog -c "/var/www/catalog/bin/init_db.py -t psql"
 ```
 
 ##### 13.2 Create a directory for secrets and populate it
@@ -305,12 +308,44 @@ instructions for obtaining these are given in [Udacity's Authentication and Auth
 
 ```shell
 sudo su catalog -c "mkdir -p /var/www/catalog/.secrets"
-cp <some_secret_location>/client_secrets.json /var/www/catalog/.secrets/.
-cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/.
+sudo cp <some_secret_location>/client_secrets.json /var/www/catalog/.secrets/.
+sudo cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/.
+sudo chown -R catalog:catalog /var/catalog/.secrets
 ```
 
 ##### 13.2 Create virtual host configuration
 
-A template for the virtual host apache configuration itemcatalog.conf can be found in the itemcatalog repository. Modify this file and move if to `/etc/apache2/sites-available/catalog.conf`.
+A template for the virtual host apache configuration itemcatalog.conf can be found in the itemcatalog repository. Modify this file and move if to `/etc/apache2/sites-available/catalog.conf`. The final result shoudl look something like
+
+```xml
+<VirtualHost *:80>
+
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/catalog
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    WSGIScriptAlias / /var/www/catalog/bin/itemcatalog.wsgi
+    WSGIDaemonProcess itemcatalog user=catalog group=catalog threads=5
+    <Directory /var/www/catalog/bin/>
+      WSGIScriptReloading On
+      Order allow,deny
+      Allow from all
+    </Directory>
+
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+```
 
 ##### 13.3 Create WSGI application file
+
+A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed. Check that the script and secret paths are correct:
+
+```python
+...
+VENV = '/var/www/catalog' # virtualenv location
+...
+os.environ['SECRETS_PATH'] = '%s/.secrets' % VENV # secrets location
+```

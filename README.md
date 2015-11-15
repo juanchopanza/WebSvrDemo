@@ -312,7 +312,7 @@ instructions for obtaining these are given in [Udacity's Authentication and Auth
 sudo su catalog -c "mkdir -p /var/www/catalog/.secrets"
 sudo cp <some_secret_location>/client_secrets.json /var/www/catalog/.secrets/.
 sudo cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/.
-sudo chown -R catalog:catalog /var/catalog/.secrets
+sudo chown -R catalog:catalog /var/www/catalog/.secrets
 ```
 
 ##### 13.2 Create virtual host configuration
@@ -344,11 +344,14 @@ Check the file, modify is necessary, and move it to `/etc/apache2/sites-availabl
 
 ##### 13.3 Create WSGI application file
 
-A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct and modify if required:
+A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct, and set the postgres user `catalog`'s password:
 
 ```python
 ...
 VENV = '/var/www/catalog' # virtualenv location
 ...
 os.environ['SECRETS_PATH'] = '%s/.secrets' % VENV # secrets location
+...
+# Replace <CATALOG_PWD> for the real password of the POSTGRES user "catalog"
+application.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://catalog:<CATALOG_PWD>@localhost/itemcatalog'
 ```

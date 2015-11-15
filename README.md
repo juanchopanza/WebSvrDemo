@@ -1,5 +1,7 @@
 # WebSvrDemo
-Web server for Udacity full stack nanodegree project 5
+Web server for Udacity full stack nanodegree project 5. The server is to host the [simple web application developed for project 3](https://github.com/juanchopanza/ItemCatalog). This is a step by step guide on how to set it up, as
+specified in the project requirements. In a realistic production setting, these steps should be automated using
+tools such as [puppet](http://docs.puppetlabs.com/puppet/).
 
 ## Set up
 

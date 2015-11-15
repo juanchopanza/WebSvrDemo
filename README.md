@@ -214,7 +214,7 @@ Now, visiting `http://52.88.73.214/` should produce a page with
 
 Additional sources: [Apache configuration documentation](https://httpd.apache.org/docs/2.2/configuring.html).
 
-#### 12. Install and configure PodtgreSQL
+#### 12. Install and configure PostgreSQL
 
 We will use `postgresql` as a database backend for the item catalog app. We need to install
 the package and take care of some configuration and database creation.
@@ -262,7 +262,7 @@ ALTER USER catalog WITH PASSWORD '<CATALOG_PWD>';
 
 where `<CATALOG_PWD>` is to be set to something sensible.
 
-#### 12. Install other item catalog app dependencies
+#### 13. Install other item catalog app dependencies
 
 A few packages are needed to ease the installation and running of the item catalog
 application.
@@ -280,14 +280,14 @@ sudo apt-get install supervisor
 
 The remaining python dependencies will be installed with `pip` into a `virtualenv`.
 
-#### 13. WSGI configuration
+#### 14. WSGI configuration
 
 We will configure Apache to run an WSGI app from a `virtualenv`. The app should be
 demonized such that it starts whenever the server re-starts.
 
 Source: [Flask mod_wsgi(Apache) Configuration](http://flask.pocoo.org/docs/0.10/deploying/mod_wsgi/)
 
-##### 13.1 Install item catalog app and initialize database
+##### 14.1 Install item catalog app and initialize database
 
 We install the item catalog application from project 3 into a virtualenv. By doing this instead of cloning the repo,
 we ensure we only install the code necessary to run the application.
@@ -303,7 +303,7 @@ sudo su catalog -c "/var/www/catalog/bin/pip install git+https://github.com/juan
 sudo su catalog -c "/var/www/catalog/bin/init_db.py -t psql"
 ```
 
-##### 13.2 Create a directory for secrets and populate it
+##### 14.2 Create a directory for secrets and populate it
 
 This application has authentication for for google and facebook sign-in and requires secrets files for both. The
 instructions for obtaining these are given in [Udacity's Authentication and Authorization course](https://www.udacity.com/course/viewer#!/c-ud330/l-3951228603/m-3949778775). See also the Full stack nanodegree project 3 for more details. Here, we assume the secrets files have been correctly obtained elsewhere.
@@ -315,7 +315,7 @@ sudo cp <some_secret_location>/fb_client_secrets.json /var/www/catalog/.secrets/
 sudo chown -R catalog:catalog /var/www/catalog/.secrets
 ```
 
-##### 13.2 Create virtual host configuration
+##### 14.3 Create virtual host configuration
 
 An example virtual host apache configuration file `catalog.conf` can be found in this repository. This configuration runs the application from the `virtualenv` as user `catalog`.
 Check the file, modify is necessary, and move it to `/etc/apache2/sites-available/catalog.conf`. The final result shoudl look something like
@@ -342,9 +342,9 @@ Check the file, modify is necessary, and move it to `/etc/apache2/sites-availabl
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 ```
 
-##### 13.3 Create WSGI application file
+##### 14.4 Create WSGI application file
 
-A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct, and set the postgres user `catalog`'s password:
+A WSGI script `/var/www/catalog/bin/itemcatalog.wsgi` has been installed into the application virtualenv. Check that the script and secret paths are correct, and set the postgres user `catalog`'s password (see step 12.):
 
 ```python
 ...
